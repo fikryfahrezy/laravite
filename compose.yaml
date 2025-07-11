@@ -8,14 +8,11 @@ services:
     env_file:
       - path: ./.env
         required: true
-    ports:
-      - "8080:8080"
   inertia-ssr:
     build:
       context: .
       args:
         - PORT=13714
+        - SSR=true
     command: php artisan inertia:start-ssr
-    ports:
-      - "13714:13714"
 
