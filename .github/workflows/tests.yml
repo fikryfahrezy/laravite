@@ -12,7 +12,7 @@ on:
 
 jobs:
   ci:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
 
     steps:
       - name: Checkout
@@ -25,14 +25,20 @@ jobs:
           tools: composer:v2
           coverage: xdebug
 
+      - uses: pnpm/action-setup@v4
+        name: Install pnpm
+        with:
+          version: pnpm@10.11.1+sha512.e519b9f7639869dc8d5c3c5dfef73b3f091094b0a006d7317353c72b124e80e1afd429732e28705ad6bfa1ee879c1fce46c128ccebd3192101f43dd67c667912
+          run_install: false
+
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: '22'
-          cache: 'npm'
+          cache: 'pnpm'
 
       - name: Install Node Dependencies
-        run: npm ci
+        run: pnpm install
 
       - name: Install Dependencies
         run: composer install --no-interaction --prefer-dist --optimize-autoloader
