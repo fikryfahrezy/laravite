@@ -1,10 +1,16 @@
 services:
   laravel:
-    build: .
+    build:
+      context: .
+      args:
+        - PORT=3000
     env_file:
       - path: ./.env
         required: true
   inertia-ssr:
-    build: .
+    build:
+      context: .
+      args:
+        - PORT=13714
     command: php artisan inertia:start-ssr
 
