@@ -1,8 +1,6 @@
 services:
   laravel:
     build: .
-    environment:
-      - SSR_URL=http://inertia-ssr:13714
     env_file:
       - path: ./.env
         required: true
