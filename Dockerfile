@@ -83,12 +83,18 @@ WORKDIR /app
 COPY . .
 COPY --from=base /var/www/html/vendor /app/vendor
 
+ARG SSR=false
+
 # Use yarn or npm depending on what type of
 # lock file we might find. Defaults to
 # NPM if no lock file is found.
 # Note: We run "production" for Mix and "build" for Vite
 RUN if [ -f "vite.config.ts" ]; then \
-        ASSET_CMD="build"; \
+        if [ "$SSR" = "true" ]; then \
+            ASSET_CMD="build:ssr"; \
+        else \
+            ASSET_CMD="build"; \
+        fi; \
     else \
         ASSET_CMD="production"; \
     fi; \
