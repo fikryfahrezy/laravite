@@ -7,8 +7,8 @@ import { ZiggyVue } from 'ziggy-js';
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 
-createServer((page) =>
-    createInertiaApp({
+createServer((page) => {
+    return createInertiaApp({
         page,
         render: renderToString,
         title: (title) => title ? `${title} - ${appName}` : appName,
@@ -18,11 +18,10 @@ createServer((page) =>
                 .use(plugin)
                 .use(ZiggyVue, {
                     ...page.props.ziggy as any,
-                    location: new URL((page.props.ziggy as any).location),
+                    location: new URL((page.props.ziggy as any).url),
                 }),
-    }),
-    { cluster: true },
-);
+    });
+}, { cluster: true },);
 
 function resolvePage(name: string) {
     const pages = import.meta.glob<DefineComponent>('./pages/**/*.vue');
