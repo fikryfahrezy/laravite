@@ -125,5 +125,6 @@ RUN rsync -ar /var/www/html/public-npm/ /var/www/html/public/ \
 
 # 5. Setup Entrypoint
 EXPOSE 8080
+EXPOSE 13714
 
 ENTRYPOINT ["/entrypoint"]
